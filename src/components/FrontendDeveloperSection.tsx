@@ -74,7 +74,7 @@ export default function FrontendDeveloperSection() {
             }}
             className="inline-block overflow-hidden whitespace-nowrap text-[11px] tracking-[0.3em] uppercase text-white/60 font-mono"
           >
-            ✦ Available for work
+            ✦ Open to Work
           </motion.span>
 
           <motion.span
@@ -96,18 +96,18 @@ export default function FrontendDeveloperSection() {
             initial={{ opacity: 0, scale: 0.85, y: 50 }}
             animate={inView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.85, y: 50 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="font-extrabold leading-[1.05] tracking-tight text-white text-[clamp(56px,9vw,120px)]"
+            className="font-extrabold leading-[1.05] tracking-tight text-white text-[clamp(48px,8vw,100px)]"
           >
-            Frontend
+            Cloud &
           </motion.h1>
 
           <motion.h1
             initial={{ opacity: 0, x: -80, rotate: -4 }}
             animate={inView ? { opacity: 1, x: 0, rotate: 0 } : { opacity: 0, x: -80, rotate: -4 }}
             transition={{ duration: 1, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="font-extrabold leading-[1.05] tracking-tight text-white/70 text-[clamp(56px,9vw,120px)] mb-6"
+            className="font-extrabold leading-[1.05] tracking-tight text-white/70 text-[clamp(48px,8vw,100px)] mb-6"
           >
-            Developer
+            DevOps Intern 
           </motion.h1>
         </div>
 
@@ -125,8 +125,9 @@ export default function FrontendDeveloperSection() {
     from-white via-white/60 to-white
     animate-[shine_4s_linear_infinite]"
         >
-          Building modern websites with clean, responsive, elegant interfaces.
-          Turning ideas and designs into engaging digital experiences.
+          Currently working as a Cloud & DevOps Intern at Akumen .
+          Passionate about Linux, Python, and cloud technologies while continuously
+          learning DevOps through hands-on projects and real-world training.
         </motion.p>
 
         <motion.div
@@ -135,7 +136,7 @@ export default function FrontendDeveloperSection() {
           transition={{ duration: 1, delay: 0.8 }}
           className="mt-6 flex flex-wrap gap-4"
         >
-          {["Next.js", "React.js", "TypeScript", "Tailwind CSS"].map((tech) => (
+          {["Linux", "Python", "HTML", "CSS"].map((tech) => (
             <div
               key={tech}
               className="
@@ -168,7 +169,7 @@ export default function FrontendDeveloperSection() {
             onClick={() => setShowCard((s) => !s)}
             className="inline-flex items-center gap-2 border border-accent text-accent px-6 py-3 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-accent hover:text-black transition-all duration-200 rounded-full relative z-20"
           >
-            {showCard ? "Hide Card" : "Show Card"}
+            {showCard ? "Hide Profile" : "View Profile"}
           </motion.button>
 
           {/* About Button */}

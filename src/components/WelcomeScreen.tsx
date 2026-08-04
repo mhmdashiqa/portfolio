@@ -1,201 +1,247 @@
-import { motion } from "framer-motion";
-import { Code2, User, Globe } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+  type Easing,
+} from "framer-motion";
 
-export default function WelcomeScreen() {
-  const icons = [Code2, User, Globe];
+const NAME = "Mohammed Ashiq A";
+const TITLE = "Aspiring Cloud & DevOps Engineer";
+const DESCRIPTION =
+  "Passionate about Linux, Cloud Computing, DevOps and Automation. Continuously building practical skills through real-world projects and hands-on learning.";
+const SKILLS = ["Linux", "Cloud", "DevOps", "Python", "GitHub"];
+const LOADING_LABEL = "Loading Portfolio…";
+const COPYRIGHT = `© ${new Date().getFullYear()} Mohammed Ashiq A`;
 
-  useEffect(() => {
-    // scroll band
-    document.body.style.overflow = "hidden";
+const LOADING_DURATION_MS = 2600;
+const EXIT_DELAY_MS = 400;
+const EASE_OUT: Easing = [0.16, 1, 0.3, 1];
 
-    return () => {
-      // welcome screen hatne ke baad scroll wapas
-      document.body.style.overflow = "auto";
-    };
-  }, []);
+interface WelcomeScreenProps {
+  onComplete?: () => void;
+}
+
+interface GlowOrbConfig {
+  size: number;
+  top: string;
+  left: string;
+  depth: number;
+  duration: number;
+}
+
+const GLOW_ORBS: GlowOrbConfig[] = [
+  { size: 420, top: "8%", left: "12%", depth: 18, duration: 14 },
+  { size: 360, top: "58%", left: "72%", depth: 24, duration: 18 },
+  { size: 280, top: "78%", left: "18%", depth: 14, duration: 16 },
+];
+
+function useParallax() {
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const springX = useSpring(pointerX, { stiffness: 60, damping: 20 });
+  const springY = useSpring(pointerY, { stiffness: 60, damping: 20 });
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const { innerWidth, innerHeight } = window;
+    pointerX.set((event.clientX / innerWidth - 0.5) * 2);
+    pointerY.set((event.clientY / innerHeight - 0.5) * 2);
+  };
+
+  return { springX, springY, handlePointerMove };
+}
+
+function GlowOrb({
+  config,
+  springX,
+  springY,
+}: {
+  config: GlowOrbConfig;
+  springX: ReturnType<typeof useSpring>;
+  springY: ReturnType<typeof useSpring>;
+}) {
+  const x = useTransform(springX, (value) => value * config.depth);
+  const y = useTransform(springY, (value) => value * config.depth);
 
   return (
     <motion.div
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 1 }}
-      exit={{
-        opacity: 0,
-        scale: 1.05,
-        transition: {
-          duration: 1.2,
-          ease: [0.22, 1, 0.36, 1],
-        },
+      className="absolute rounded-full bg-white/10 blur-[110px]"
+      style={{
+        width: config.size,
+        height: config.size,
+        top: config.top,
+        left: config.left,
+        x,
+        y,
       }}
-      className="fixed inset-0 z-[99999] flex items-center justify-center bg-black overflow-hidden p-5"
+      animate={{
+        opacity: [0.15, 0.3, 0.15],
+        scale: [1, 1.08, 1],
+      }}
+      transition={{
+        duration: config.duration,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    />
+  );
+}
+
+function SkillBadge({ label }: { label: string }) {
+  return (
+    <motion.li
+      variants={{
+        hidden: { opacity: 0, y: 14, scale: 0.94 },
+        show: { opacity: 1, y: 0, scale: 1 },
+      }}
+      transition={{ duration: 0.5, ease: EASE_OUT }}
+      className="flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.08)_inset]"
     >
-      {/* Background Glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-white/10 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-150px] right-[-80px] w-[300px] h-[300px] bg-white/5 blur-[100px] rounded-full" />
+      <motion.span
+        className="h-1.5 w-1.5 rounded-full bg-white/70"
+        animate={{ opacity: [0.4, 1, 0.4] }}
+        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <span className="text-sm font-medium tracking-wide text-white/90">
+        {label}
+      </span>
+    </motion.li>
+  );
+}
+
+function LoadingBar({ progress }: { progress: number }) {
+  return (
+    <div className="w-full max-w-xs">
+      <div className="mb-2 flex items-center justify-between">
+        <span className="text-xs font-medium uppercase tracking-[0.2em] text-white/50">
+          {LOADING_LABEL}
+        </span>
+        <span className="font-mono text-xs text-white/50">
+          {Math.round(progress)}%
+        </span>
       </div>
+      <div className="h-1 w-full overflow-hidden rounded-full border border-white/10 bg-white/[0.06]">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-white/60 via-white to-white/60 shadow-[0_0_12px_rgba(255,255,255,0.5)] transition-[width] duration-150 ease-linear"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+    </div>
+  );
+}
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: 1.2,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="relative text-center text-white flex flex-col items-center gap-5 w-full max-w-[340px]"
-      >
-        {/* Icons */}
+export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
+  const [progress, setProgress] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const startRef = useRef<number | null>(null);
+  const frameRef = useRef<number>();
+
+  const { springX, springY, handlePointerMove } = useParallax();
+
+  useEffect(() => {
+    const tick = (timestamp: number) => {
+      if (startRef.current === null) startRef.current = timestamp;
+      const elapsed = timestamp - startRef.current;
+      const next = Math.min((elapsed / LOADING_DURATION_MS) * 100, 100);
+      setProgress(next);
+
+      if (next < 100) {
+        frameRef.current = requestAnimationFrame(tick);
+      } else {
+        window.setTimeout(() => setVisible(false), EXIT_DELAY_MS);
+      }
+    };
+
+    frameRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+    };
+  }, []);
+
+  const badgeListVariants = {
+    hidden: {},
+    show: {
+      transition: { staggerChildren: 0.1, delayChildren: 0.9 },
+    },
+  };
+
+  return (
+    <AnimatePresence onExitComplete={onComplete}>
+      {visible && (
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.25,
-              },
-            },
-          }}
-          className="flex gap-4 items-center justify-center"
+          onPointerMove={handlePointerMove}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, filter: "blur(12px)", scale: 1.02 }}
+          transition={{ duration: 0.8, ease: EASE_OUT }}
+          className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black px-6"
         >
-          {icons.map((Icon, i) => (
-            <motion.div
-              key={i}
-              variants={{
-                hidden: {
-                  opacity: 0,
-                  scale: 0.3,
-                  rotate: -140,
-                  y: 60,
-                },
-                visible: {
-                  opacity: 1,
-                  scale: 1,
-                  rotate: 0,
-                  y: 0,
-                },
-              }}
-              transition={{
-                duration: 1.3,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{
-                scale: 1.08,
-              }}
-              className="w-[48px] h-[48px] rounded-full border border-white/10 flex items-center justify-center bg-white/5 backdrop-blur-md shadow-[0_0_25px_rgba(255,255,255,0.05)]"
-            >
-              <Icon size={20} color="white" />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Text */}
-        <div className="flex flex-col items-center gap-1">
-          <div className="flex items-center justify-center gap-2 flex-wrap">
-            <motion.span
-              initial={{ opacity: 0, x: 120 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                delay: 1,
-                duration: 1.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="text-[clamp(22px,5vw,34px)] font-black tracking-tight"
-            >
-              Welcome
-            </motion.span>
-
-            <motion.span
-              initial={{ opacity: 0, x: -120 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{
-                delay: 1.2,
-                duration: 1.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="text-[clamp(22px,5vw,34px)] font-black tracking-tight"
-            >
-              to my
-            </motion.span>
+          <div className="pointer-events-none absolute inset-0">
+            {GLOW_ORBS.map((orb, index) => (
+              <GlowOrb key={index} config={orb} springX={springX} springY={springY} />
+            ))}
           </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 70 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: 1.4,
-              duration: 1.2,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="text-[clamp(24px,6vw,38px)] font-black tracking-tight leading-tight text-center"
-          >
-            Portfolio Website
-          </motion.h1>
-        </div>
+          <div className="relative z-10 flex w-full max-w-2xl flex-col items-center text-center">
+            <motion.h1
+              initial={{ opacity: 0, y: 28, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.9, ease: EASE_OUT }}
+              className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl"
+            >
+              {NAME}
+            </motion.h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          transition={{
-            delay: 1.8,
-            duration: 1,
-          }}
-          className="text-sm text-white/60 tracking-wide"
-        >
-          Creating Websites That Feel Alive.
-        </motion.p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.35, ease: EASE_OUT }}
+              className="mt-4 text-lg font-medium text-white/70 sm:text-xl"
+            >
+              {TITLE}
+            </motion.p>
 
-        {/* Website Badge */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{
-            delay: 2,
-            duration: 0.5,
-          }}
-          className="px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-xs tracking-[0.25em] text-white/70 shadow-[0_0_30px_rgba(255,255,255,0.04)] overflow-hidden"
-        >
-          <motion.span
-            initial={{ width: "0ch" }}
-            animate={{ width: "22ch" }}
-            transition={{
-              delay: 2.2,
-              duration: 2,
-              ease: "easeInOut",
-            }}
-            className="inline-block overflow-hidden whitespace-nowrap"
-          >
-            www.webkaizen.in
-          </motion.span>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.55, ease: EASE_OUT }}
+              className="mt-5 max-w-md text-sm leading-relaxed text-white/50 sm:text-base"
+            >
+              {DESCRIPTION}
+            </motion.p>
 
-          <motion.span
-            animate={{
-              opacity: [1, 0, 1],
-            }}
-            transition={{
-              duration: 0.5,
-              repeat: Infinity,
-            }}
-            className="ml-[2px]"
+            <motion.ul
+              variants={badgeListVariants}
+              initial="hidden"
+              animate="show"
+              className="mt-9 flex flex-wrap items-center justify-center gap-3"
+            >
+              {SKILLS.map((skill) => (
+                <SkillBadge key={skill} label={skill} />
+              ))}
+            </motion.ul>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.3, ease: EASE_OUT }}
+              className="mt-12 flex w-full flex-col items-center"
+            >
+              <LoadingBar progress={progress} />
+            </motion.div>
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.5, ease: EASE_OUT }}
+            className="absolute bottom-6 text-xs tracking-wide text-white/35"
           >
-            |
-          </motion.span>
+            {COPYRIGHT}
+          </motion.p>
         </motion.div>
-
-        {/* Bottom Loading Line */}
-        <div className="mt-10 w-[240px] bg-white/20 h-[2px] overflow-hidden rounded-full">
-          <motion.div
-            initial={{ width: "10%" }}
-            animate={{ width: "100%" }}
-            transition={{
-              duration: 6.5,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="h-full bg-white"
-          />
-        </div>
-      </motion.div>
-    </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

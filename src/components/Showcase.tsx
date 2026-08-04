@@ -17,24 +17,11 @@ const techStack = [
   { name: "Netlify", icon: "https://cdn.simpleicons.org/netlify/00C7B7", color: "#00C7B7" },
   { name: "Terminal", icon: "https://cdn.simpleicons.org/gnometerminal/4EAA25", color: "#4EAA25" },
 ];
-
-const projects = [
-  {
-    tech: "typescript + Tailwind",
-    thumbnail: "https://cdn.jsdelivr.net/gh/princekumar-dev74/portfolio/public/preview.png",
-    github: "https://github.com/princekumar-dev74/portfolio.git",
-  },
-  {
-    tech: "Typescript + Tailwind",
-    thumbnail: "/assets/website.png",
-    github: "https://www.webkaizen.in",
-  },
-  {
-    tech: "Typescript",
-    thumbnail: "https://cdn.jsdelivr.net/gh/princekumar-dev74/portfolio-v1/public/preview.png",
-    github: "https://github.com/princekumar-dev74/portfolio-v1.git",
-  },
-];
+const projects: {
+  tech: string;
+  thumbnail: string;
+  github: string;
+}[] = [];
 
 const certificates = [
   { title: "upcoming", tech: "#", thumbnail: "#" },
@@ -506,18 +493,28 @@ export default function ShowcaseSection() {
           onTouchEnd={handleTouchEnd}
         >
           {active === "projects" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-              {projects.map((item, i) => (
-                <div
-                  key={i}
-                  className="opacity-0"
-                  style={{ animation: `fadeSlideUp 0.5s ease ${i * 0.08}s forwards` }}
-                >
-                  <ProjectCard item={item} />
-                </div>
-              ))}
-            </div>
-          )}
+  <div
+    className="opacity-0"
+    style={{ animation: "fadeSlideUp 0.5s ease forwards" }}
+  >
+    <div className="rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-16 text-center">
+
+      <div className="mb-8 text-6xl">🚀</div>
+
+      <h2 className="text-4xl font-bold text-white mb-5">
+        Projects Coming Soon
+      </h2>
+
+      <p className="max-w-2xl mx-auto text-white/60 leading-8">
+        I am currently working on real-world Cloud & DevOps projects.
+        This section will soon feature Linux Administration, AWS,
+        Docker, CI/CD pipelines, automation, scripting, and other
+        infrastructure projects.
+      </p>
+
+    </div>
+  </div>
+)}
 
           {active === "certificates" && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">

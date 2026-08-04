@@ -1,5 +1,24 @@
-<div align="center">
-    <h1>Potfolio Preview</h1>
-    <img  width=100% src="https://cdn.jsdelivr.net/gh/princekumar-dev74/portfolio/public/preview.png"/>
-     
-</div>
+# Mohammed Ashiq A Portfolio
+
+Personal portfolio website built with React, TypeScript, Tailwind CSS, and Framer Motion.
+
+## Features
+
+- Modern responsive UI
+- About Me section
+- Showcase
+- Contact section
+- Resume download
+- GitHub & LinkedIn links
+
+## Tech Stack
+
+- React
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- Vite
+
+## Author
+
+Mohammed Ashiq A

@@ -148,7 +148,7 @@ export default function ContactSection() {
 
                             {/* gmail */}
                             <a
-                                href="mailto:sprince05873@gmail.com"
+                                href="mailto:mohammedashiqansar@gmail.com"
                                 className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl
                 border border-white/10
                 bg-white/[0.04]
@@ -534,7 +534,7 @@ export default function ContactSection() {
                     <div className="flex flex-wrap items-center justify-center gap-5">
                         {/* Instagram */}
                         <a
-                            href="https://www.instagram.com/prince_kumar_74_"
+                            href="https://www.instagram.com/ashiq_anzar"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Instagram"
@@ -565,7 +565,7 @@ export default function ContactSection() {
 
                         {/* GitHub */}
                         <a
-                            href="https://github.com/princekumar-dev74"
+                            href="https://github.com/mhmdashiqa"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="GitHub"
@@ -584,7 +584,7 @@ export default function ContactSection() {
 
                         {/* YouTube */}
                         <a
-                            href="https://www.youtube.com/@WebKaizenDev"
+                            href="https://www.youtube.com/@ashzerynofficial4293"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="YouTube"
@@ -603,7 +603,7 @@ export default function ContactSection() {
 
                         {/* Telegram */}
                         <a
-                            href="https://t.me/web_kaizen_official"
+                            href="https://t.me/zeryn4"
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Telegram"
@@ -627,7 +627,7 @@ export default function ContactSection() {
   Copyright © {new Date().getFullYear()} All Rights Reserved | Created by{" "}
   
   <span className="relative inline-block text-white/70">
-    prince
+    Ashiq 
     <span className="absolute left-1/2 -translate-x-1/2 -bottom-2">
       <div className="h-px w-24 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
     </span>

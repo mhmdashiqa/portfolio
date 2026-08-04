@@ -13,14 +13,14 @@ import { Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 
 
-const logos = ["PRINCE", "WEBKAIZEN", "FRONTEND", "DEVELOPER"];
+const logos = ["MOHAMMED ASHIQ A", "CLOUD & DEVOPS", "INTERN"];
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [time, setTime] = useState("");
   const [mobileMenu, setMobileMenu] = useState(false);
 
-  const text = "PRINCE";
+  const text = "ASHIQ";
   const [displayed, setDisplayed] = useState("");
   const [colorMode, setColorMode] = useState(0);
 
@@ -89,7 +89,7 @@ export default function App() {
               />
 
               <span className="text-[10px] md:text-xs tracking-[0.3em] text-white/70 uppercase font-medium">
-                PRINCE · WEBKAIZEN
+                ASHIQ · CLOUD & DEVOPS 
               </span>
             </div>
             <ul className="hidden md:flex items-center gap-10 text-xs tracking-widest text-white/70 uppercase">
@@ -247,16 +247,14 @@ bg-[length:200%_auto]
 bg-gradient-to-r
 from-white via-white/60 to-white
 animate-[shine_4s_linear_infinite]">
-                Creating
+                Aspiring
                 <br />
-                Websites
+                Cloud &
                 <br />
-                That Feel
-                <br />
-                Alive.
+                DevOps Engineer 
               </p>
 
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mt-auto">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-start gap-6 mt-auto">
                 <p className="relative text-sm sm:text-base lg:text-xl
     leading-relaxed max-w-md
     font-[Poppins] font-medium
@@ -266,22 +264,34 @@ animate-[shine_4s_linear_infinite]">
     bg-gradient-to-r
     from-white via-white/60 to-white
     animate-[shine_4s_linear_infinite]">
-                  Turning creative ideas into interactive and{" "} <br />
+                  Passionate about Linux, Cloud, and DevOps.{" "} <br />
                   <em className="not-italic text-white">
-                    high-quality web experiences.
+                    Continuously learning through hands-on projects and real-world experience.
                   </em>
                 </p>
 
+                <div className="flex gap-4">
                 <a
-                  href="https://www.webkaizen.in"
+                  href="https://www.linkedin.com/in/mohammed-ashiq-a-b804562a3/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   <button className="inline-flex items-center gap-3 border border-white/20 text-white px-6 py-3 text-xs tracking-[0.25em] uppercase font-semibold hover:bg-white hover:text-black transition-all duration-300 rounded-full">
-                    WEBKAIZEN
+                    CONNECT ON LINKEDIN
                     <ArrowUpRight size={16} />
                   </button>
                 </a>
+                <a
+                  href="https://github.com/mhmdashiqa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+>
+                  <button className="inline-flex items-center gap-3 border border-white/20 text-white px-6 py-3 text-xs tracking-[0.25em] uppercase hover:bg-white hover:text-black transition rounded-full">
+    GITHUB
+    <ArrowUpRight size={16} />
+                  </button>
+                </a>
+                </div>
               </div>
             </div>
           </section>
