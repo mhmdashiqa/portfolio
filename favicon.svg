@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000"/>
+      <stop offset="100%" stop-color="#121212"/>
+    </linearGradient>
+    <linearGradient id="whiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#e2e8f0"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#bgGrad)" stroke="url(#whiteGrad)" stroke-width="12" />
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#ffffff" stroke-opacity="0.2" stroke-width="3" />
+
+  <!-- Monogram M A Artwork -->
+  <g filter="url(#glow)" stroke="url(#whiteGrad)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Letter M -->
+    <path d="M 120 360 L 120 160 L 200 280 L 280 160 L 280 360" />
+    <!-- Letter A -->
+    <path d="M 280 360 L 340 160 L 400 360" />
+    <path d="M 310 270 L 370 270" stroke-width="22" />
+  </g>
+
+  <!-- White accent dot -->
+  <circle cx="410" cy="150" r="18" fill="#ffffff" />
+</svg>
